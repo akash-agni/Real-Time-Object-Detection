@@ -1,7 +1,7 @@
 # Real-Time-Object-Detection
-PyTorch and OpenCV based application to perform real time  object detection
+TL;DR: Python application for read time object detection on video feed.
 
-I built this as part of my learning effort to understand object detection algorithms and implement one of them.
+<img src="https://raw.githubusercontent.com/akash-agni/Real-Time-Object-Detection/main/img1.jpg" width="400">
 
 ## Usage
 You can install all the used packages using.
