@@ -6,8 +6,16 @@ from time import time
 
 
 class ObjectDetection:
+    """
+    Class implements Yolo5 model to make inferences on a youtube video using Opencv2.
+    """
 
     def __init__(self, url, out_file="Labeled_Video.avi"):
+        """
+        Initializes the class with youtube url and output file.
+        :param url: Has to be as youtube URL,on which prediction is made.
+        :param out_file: A valid output file name.
+        """
         self._URL = url
         self.model = self.load_model()
         self.classes = self.model.names
@@ -15,16 +23,28 @@ class ObjectDetection:
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     def get_video_from_url(self):
+        """
+        Creates a new video streaming object to extract video frame by frame to make prediction on.
+        :return: opencv2 video capture object, with lowest quality frame available for video.
+        """
         play = pafy.new(self._URL).streams[-1]
         assert play is not None
         return cv2.VideoCapture(play.url)
 
-
     def load_model(self):
+        """
+        Loads Yolo5 model from pytorch hub.
+        :return: Trained Pytorch model.
+        """
         model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
         return model
 
     def score_frame(self, frame):
+        """
+        Takes a single frame as input, and scores the frame using yolo5 model.
+        :param frame: input frame in numpy/list/tuple format.
+        :return: Labels and Coordinates of objects detected by model in the frame.
+        """
         self.model.to(self.device)
         frame = [torch.tensor(frame)]
         results = self.model(frame)
@@ -32,9 +52,20 @@ class ObjectDetection:
         return labels, cord
 
     def class_to_label(self, x):
+        """
+        For a given label value, return corresponding string label.
+        :param x: numeric label
+        :return: corresponding string label
+        """
         return self.classes[int(x)]
 
     def plot_boxes(self, results, frame):
+        """
+        Takes a frame and its results as input, and plots the bounding boxes and label on to the frame.
+        :param results: contains labels and coordinates predicted by model on the given frame.
+        :param frame: Frame which has been scored.
+        :return: Frame with bounding boxes and labels ploted on it.
+        """
         labels, cord = results
         n = len(labels)
         x_shape, y_shape = frame.shape[1], frame.shape[0]
@@ -49,6 +80,11 @@ class ObjectDetection:
         return frame
 
     def __call__(self):
+        """
+        This function is called when class is executed, it runs the loop to read the video frame by frame,
+        and write the output into a new file.
+        :return: void
+        """
         player = self.get_video_from_url()
         assert player.isOpened()
         x_shape = int(player.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -66,7 +102,6 @@ class ObjectDetection:
             print(f"Frames Per Second : {fps}")
             out.write(frame)
 
-
+# Create a new object and execute.
 a = ObjectDetection("https://www.youtube.com/watch?v=dwD1n7N7EAg")
 a()
-
