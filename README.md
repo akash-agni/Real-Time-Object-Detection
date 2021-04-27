@@ -5,12 +5,16 @@ TL;DR: Python application for read time object detection on video feed.
 
 ## Usage
 You can install all the used packages using.
- 
+
 ```pip install -r requirements.txt```
 
 To parse an URL.
 
 ```python Object_Detection_YouTube.py <URL> <Output_Filename.avi>```
+
+To parse a drone video for humans only.
+
+```python Drone_Human_Detection_Model.py <input_file_name> <output_file_name.avi>```
 
 ## Upcoming Features.
 <ul>
