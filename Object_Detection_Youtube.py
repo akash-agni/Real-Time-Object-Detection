@@ -46,7 +46,7 @@ class ObjectDetection:
         :return: Labels and Coordinates of objects detected by model in the frame.
         """
         self.model.to(self.device)
-        frame = [torch.tensor(frame)]
+        frame = [frame]
         results = self.model(frame)
         labels, cord = results.xyxyn[0][:, -1].numpy(), results.xyxyn[0][:, :-1].numpy()
         return labels, cord
