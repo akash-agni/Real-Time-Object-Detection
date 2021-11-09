@@ -1,4 +1,4 @@
-# Real-Time-Object-Detection
+# Real Time Object Detection
 TL;DR: Python application for read time object detection on video feed.
 
 <img src="https://raw.githubusercontent.com/akash-agni/Real-Time-Object-Detection/main/img1.jpg" width="400">
