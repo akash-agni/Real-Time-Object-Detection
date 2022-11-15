@@ -10,7 +10,7 @@ You can install all the used packages using.
 
 To parse an URL.
 
-```python Object_Detection_YouTube.py <URL> <Output_Filename.avi>```
+```python Object_Detection_Youtube.py <URL> <Output_Filename.avi>```
 
 To parse a drone video for humans only.
 
